@@ -98,6 +98,14 @@ class InflectorTest < ActiveSupport::TestCase
     assert_equal("CamelCase", ActiveSupport::Inflector.camelize('Camel_Case'))
   end
 
+  def test_camelize_with_camelcase
+    assert_equal("CamelCase", ActiveSupport::Inflector.camelize('CamelCase'))
+  end
+
+  def test_camelize_with_mixed
+    assert_equal("CamelCaseMixedWithUnderscore", ActiveSupport::Inflector.camelize('_CamelCase_mixedWith_Underscore'))
+  end
+
   def test_acronyms
     ActiveSupport::Inflector.inflections do |inflect|
       inflect.acronym("API")
@@ -171,9 +179,13 @@ class InflectorTest < ActiveSupport::TestCase
       inflect.acronym("API")
       inflect.acronym("JSON")
       inflect.acronym("HTML")
+      inflect.acronym("PhD")
+      inflect.acronym("APIs")
     end
 
     assert_equal("json_html_api", ActiveSupport::Inflector.underscore("JSONHTMLAPI"))
+    assert_equal("namespaced/apis", ActiveSupport::Inflector.underscore("Namespaced::APIs"))
+    assert_equal("namespaced/phd_required", ActiveSupport::Inflector.underscore("Namespaced::PhDRequired"))
   end
 
   def test_underscore

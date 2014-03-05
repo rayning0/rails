@@ -119,7 +119,7 @@ module InflectorTestCases
     "Product"               => "product",
     "SpecialGuest"          => "special_guest",
     "ApplicationController" => "application_controller",
-    "Area51Controller"      => "area51_controller"
+    "Area51Controller"      => "area51_controller",
   }
 
   UnderscoreToLowerCamel = {
@@ -141,6 +141,7 @@ module InflectorTestCases
     "HTMLTidyGenerator"     => "html_tidy_generator",
     "FreeBSD"               => "free_bsd",
     "HTML"                  => "html",
+    "ForceXMLController"    => "force_xml_controller"
   }
 
   CamelWithModuleToUnderscoreWithSlash = {
