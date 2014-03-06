@@ -3,6 +3,7 @@ require 'active_support/inflector'
 
 require 'inflector_test_cases'
 require 'constantize_test_cases'
+require 'pry'
 
 class InflectorTest < ActiveSupport::TestCase
   include InflectorTestCases
@@ -98,12 +99,16 @@ class InflectorTest < ActiveSupport::TestCase
     assert_equal("CamelCase", ActiveSupport::Inflector.camelize('Camel_Case'))
   end
 
-  def test_camelize_with_camelcase
-    assert_equal("CamelCase", ActiveSupport::Inflector.camelize('CamelCase'))
-  end
-
   def test_camelize_with_mixed
     assert_equal("CamelCaseMixedWithUnderscore", ActiveSupport::Inflector.camelize('_CamelCase_mixedWith_Underscore'))
+  end
+
+  def test_camelize_with_spaces
+    assert_equal("HelloWoRldThERe", ActiveSupport::Inflector.camelize('hello woRld thERe'))
+  end
+
+  def test_camelize_with_mixed_and_slash
+    assert_equal("Admin::StorageFiles", ActiveSupport::Inflector.camelize('admin/StorageFiles'))
   end
 
   def test_acronyms
@@ -184,8 +189,8 @@ class InflectorTest < ActiveSupport::TestCase
     end
 
     assert_equal("json_html_api", ActiveSupport::Inflector.underscore("JSONHTMLAPI"))
-    assert_equal("namespaced/apis", ActiveSupport::Inflector.underscore("Namespaced::APIs"))
     assert_equal("namespaced/phd_required", ActiveSupport::Inflector.underscore("Namespaced::PhDRequired"))
+    assert_equal("namespaced/apis", ActiveSupport::Inflector.underscore("Namespaced::APIs"))
   end
 
   def test_underscore

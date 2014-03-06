@@ -1,6 +1,7 @@
 # encoding: utf-8
 
 require 'active_support/inflections'
+require 'pry'
 
 module ActiveSupport
   # The Inflector transforms words from singular to plural, class names to table
@@ -69,10 +70,10 @@ module ActiveSupport
       string = term.to_s
       if uppercase_first_letter
         string = string.sub(/^[a-z\d]*/) { inflections.acronyms[$&] || $&.capitalize }
+        string = string.split.map {|word| word.gsub!(word[0], word[0].capitalize)}.join
       else
         string = string.sub(/^(?:#{inflections.acronym_regex}(?=\b|[A-Z_])|\w)/) { $&.downcase }
       end
-      #string.gsub!(/(?:_|(\/))([a-z\d]*)/i) { "#{$1}#{inflections.acronyms[$2] || $2.capitalize}" }
       string.gsub!(/(?:_|(\/))([a-z\d]*)/) { "#{$1}#{inflections.acronyms[$2] || $2.capitalize}" }
       string.gsub!('/', '::')
       string
@@ -90,6 +91,9 @@ module ActiveSupport
     #
     #   'SSLError'.underscore.camelize # => "SslError"
     def underscore(camel_cased_word)
+      # if camel_cased_word == "Namespaced::PhDRequired"
+      #   binding.pry
+      # end
       return camel_cased_word unless camel_cased_word =~ /[A-Z-]|::/
       word = camel_cased_word.to_s.gsub('::', '/')
       word.gsub!(/(?:([A-Za-z\d])|^)(#{inflections.acronym_regex})(?=\b|[^a-z])/) { "#{$1}#{$1 && '_'}#{$2.downcase}" }

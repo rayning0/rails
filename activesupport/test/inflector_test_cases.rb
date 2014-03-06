@@ -119,7 +119,7 @@ module InflectorTestCases
     "Product"               => "product",
     "SpecialGuest"          => "special_guest",
     "ApplicationController" => "application_controller",
-    "Area51Controller"      => "area51_controller",
+    "Area51Controller"      => "area51_controller"
   }
 
   UnderscoreToLowerCamel = {
@@ -147,7 +147,7 @@ module InflectorTestCases
   CamelWithModuleToUnderscoreWithSlash = {
     "Admin::Product" => "admin/product",
     "Users::Commission::Department" => "users/commission/department",
-    "UsersSection::CommissionDepartment" => "users_section/commission_department",
+    "UsersSection::CommissionDepartment" => "users_section/commission_department"
   }
 
   ClassNameToForeignKeyWithUnderscore = {
