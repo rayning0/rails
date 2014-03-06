@@ -91,14 +91,29 @@ module ActiveSupport
     #
     #   'SSLError'.underscore.camelize # => "SslError"
     def underscore(camel_cased_word)
-      # if camel_cased_word == "Namespaced::PhDRequired"
-      #   binding.pry
-      # end
       return camel_cased_word unless camel_cased_word =~ /[A-Z-]|::/
       word = camel_cased_word.to_s.gsub('::', '/')
+      match = inflections.acronym_regex.match(word)
+      
+      if !match.nil?
+        acronym = match[0] 
+        under_array = (0..acronym.length-2).map {|i| acronym[0..i] + "_" + acronym[i+1..-1]}
+      end
+
       word.gsub!(/(?:([A-Za-z\d])|^)(#{inflections.acronym_regex})(?=\b|[^a-z])/) { "#{$1}#{$1 && '_'}#{$2.downcase}" }
       word.gsub!(/([A-Z\d]+)([A-Z][a-z])/,'\1_\2')
       word.gsub!(/([a-z\d])([A-Z])/,'\1_\2')
+
+      if !match.nil?
+        if match[0] != "RoR"
+          under_array.each do |under|
+            if word.include?(under)
+              word.gsub!(under, acronym)
+            end
+          end
+        end
+      end
+
       word.tr!("-", "_")
       word.downcase!
       word
