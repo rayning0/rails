@@ -1,7 +1,6 @@
 # encoding: utf-8
 
 require 'active_support/inflections'
-require 'pry'
 
 module ActiveSupport
   # The Inflector transforms words from singular to plural, class names to table
@@ -94,9 +93,9 @@ module ActiveSupport
       return camel_cased_word unless camel_cased_word =~ /[A-Z-]|::/
       word = camel_cased_word.to_s.gsub('::', '/')
       match = inflections.acronym_regex.match(word)
-      
+
       if !match.nil?
-        acronym = match[0] 
+        acronym = match[0]
         under_array = (0..acronym.length-2).map {|i| acronym[0..i] + "_" + acronym[i+1..-1]}
       end
 

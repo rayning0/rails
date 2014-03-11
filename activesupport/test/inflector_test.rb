@@ -3,7 +3,6 @@ require 'active_support/inflector'
 
 require 'inflector_test_cases'
 require 'constantize_test_cases'
-require 'pry'
 
 class InflectorTest < ActiveSupport::TestCase
   include InflectorTestCases
